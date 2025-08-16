@@ -27,7 +27,7 @@ def home():
     db_config = session.get("db_config", {
         "host": "localhost",
         "user": "root",
-        "password": "",
+        "password": "9949460",
         "database": "asset_management"
     })
 

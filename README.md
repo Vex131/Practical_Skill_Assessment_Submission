@@ -25,7 +25,7 @@ There are **two ways to run the application**: using Python (source code) or the
    ```bash
    pip install -r requirements.txt
 
-6. Run the script. 
+4. Run the script. 
    ```bash
    python launcher.py
    
@@ -35,5 +35,5 @@ There are **two ways to run the application**: using Python (source code) or the
 
 ## Notes
 
-1. Both versions require access to the MySQL database with the correct credentials.
-2. Both versions come with default MySQL credentials. You may need to update them to match your own database setup in order to run the application.
+1. Both versions come with default MySQL credentials. You will need to update them to match your own database setup.
+2. The ITAssetManager.exe file may be blocked by antivirus software. If this occurs, you may need to unblock it or restore it from quarantine.
