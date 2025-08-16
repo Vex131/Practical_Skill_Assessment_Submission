@@ -1,0 +1,46 @@
+/* Forms: inputs, selects, textareas */
+input.form-control, select.form-select, textarea.form-control {
+    background-color: #343a40 !important;  /* Dark background */
+    color: #f8f9fa !important;            /* White text */
+    border-color: #495057 !important;     /* Gray border */
+}
+
+/* Date inputs */
+input[type="date"].form-control {
+    background-color: #343a40 !important;
+    color: #f8f9fa !important;
+    border-color: #495057 !important;
+}
+
+/* Dropdowns menue */
+select.form-select option {
+    background-color: #343a40 !important;
+    color: #f8f9fa !important;
+}
+
+select.form-select option:hover {
+    background-color: #495057 !important;
+    color: #f8f9fa !important;
+}
+
+/* Tables */
+.table th, .table td {
+    border-color: #2c2c2c !important;
+    color: #f8f9fa !important;
+}
+
+/* Cards */
+.card {
+    background-color: #1e1e1e !important;
+    color: #f8f9fa !important;
+}
+
+/* Buttons */
+.btn-primary, .btn-success, .btn-secondary, .btn-warning {
+    color: #f8f9fa !important;
+}
+
+/* Links */
+a {
+    color: #f8f9fa;
+}

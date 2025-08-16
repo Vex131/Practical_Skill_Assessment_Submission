@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <h2>All Assets</h2>
+
+    <a href="/add_asset" class="btn btn-success mb-3">+ Add Asset</a>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Asset #</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Location</th>
+                    <th>Purchased Date</th>
+                    <th>Discarded Date</th>
+                    <th>Assigned Staff</th>
+                    <th>Assigned Date</th>
+                    <th>Last Returned Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if assets|length == 0 %}
+                    <tr><td colspan="10" class="text-center">No assets found</td></tr>
+                {% else %}
+                {% for asset in assets %}
+                    <tr>
+                        <td>{{ asset.assetNumber }}</td>
+                        <td>{{ asset.assetType }}</td>
+                        <td>{{ asset.status }}</td>
+                        <td>{{ asset.location or '-' }}</td>
+                        <td>{{ asset.purchasedDate }}</td>
+                        <td>{{ asset.discardedDate or '-' }}</td>
+                        <td>{{ asset.staffName or '-' }}</td>
+                        <td>{{ asset.assignedDate or '-' }}</td>
+                        <td>{{ asset.returnedDate or '-' }}</td>
+                        <td>
+                            <a href="/edit_asset/{{ asset.assetNumber }}" class="btn btn-sm btn-warning">Edit</a>
+
+                            {% if asset.status == "Not Assigned" %}
+                                <a href="/assign_asset/{{ asset.assetNumber }}" class="btn btn-sm btn-primary">Assign</a>
+                            {% elif asset.status == "Assigned" %}
+                                <form action="{{ url_for('return_asset', asset_number=asset.assetNumber) }}" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('Return this asset?');">
+                                        Return
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

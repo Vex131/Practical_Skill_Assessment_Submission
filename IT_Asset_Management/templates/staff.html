@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <h2>Staff Details</h2>
+
+    <!-- Staff Selection Dropdown -->
+    <form method="get" action="/staff">
+        <label for="staff_id" class="form-label">Select Staff:</label>
+        <select id="staff_id" class="form-select mb-3" name="staff_id" onchange="this.form.submit()">
+            <option value="" disabled selected>Select a staff member</option>
+            {% for s in staff_list %}
+            <option value="{{ s.staffNumber }}" {% if selected_staff and selected_staff.staffNumber == s.staffNumber %}selected{% endif %}>
+                {{ s.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    {% if selected_staff %}
+    <!-- Staff Information Card -->
+    <div class="card mb-4">
+        <div class="card-header"><strong>Staff Information</strong></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Staff Number:</strong> {{ selected_staff.staffNumber }}</p>
+                    <p><strong>National ID:</strong> {{ selected_staff.nationalId }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Name:</strong> {{ selected_staff.name }}</p>
+                    <p><strong>Department:</strong> {{ selected_staff.department }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Current Assets Table -->
+    <h4>Current Assets</h4>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Asset #</th>
+                <th>Type</th>
+                <th>Assigned Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in current_assets %}
+            <tr>
+                <td>{{ a.assetNumber }}</td>
+                <td>{{ a.assetType }}</td>
+                <td>{{ a.assignedDate }}</td>
+            </tr>
+            {% endfor %}
+            {% if current_assets|length == 0 %}
+            <tr><td colspan="3" class="text-center">No current assets</td></tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <!-- Assignment History Table -->
+    <h4>Assignment History</h4>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Asset #</th>
+                <th>Type</th>
+                <th>Assigned Date</th>
+                <th>Returned Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in history %}
+            <tr>
+                <td>{{ a.assetNumber }}</td>
+                <td>{{ a.assetType }}</td>
+                <td>{{ a.assignedDate }}</td>
+                <td>{{ a.returnedDate or '-' }}</td>
+            </tr>
+            {% endfor %}
+            {% if history|length == 0 %}
+            <tr><td colspan="4" class="text-center">No history</td></tr>
+            {% endif %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% endblock %}
+</div>

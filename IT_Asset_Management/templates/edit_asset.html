@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<head>
+    <title>Edit Asset</title>
+</head>
+<body>
+<div class="container my-5">
+    <h2>Edit Asset #{{ asset.assetNumber }}</h2>
+
+    {% if message %}
+        <div class="alert alert-info">{{ message }}</div>
+    {% endif %}
+
+    <form method="post">
+        <div class="mb-3">
+            <label for="asset_type" class="form-label">Asset Type:</label>
+            <select class="form-select" id="asset_type" name="asset_type" required>
+                <option value="Monitor" {% if asset.assetType=='Monitor' %}selected{% endif %}>Monitor</option>
+                <option value="CPU" {% if asset.assetType=='CPU' %}selected{% endif %}>CPU</option>
+                <option value="Keyboard" {% if asset.assetType=='Keyboard' %}selected{% endif %}>Keyboard</option>
+                <option value="Mouse" {% if asset.assetType=='Mouse' %}selected{% endif %}>Mouse</option>
+                <option value="Printer" {% if asset.assetType=='Printer' %}selected{% endif %}>Printer</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="status" class="form-label">Status:</label>
+            <select class="form-select" id="status" name="status" required onchange="handleStatusChange()"
+                {% if asset.status =='Assigned' %} disabled {% endif %}>
+
+                <option value="Not Assigned" {% if asset.status=="Not%Assigned" %}selected{% endif %}>
+                    Not Assigned
+                </option>
+
+                <!-- Assigned option is always visible but disabled -->
+                <option value="Assigned" {% if asset.status=='Assigned' %}selected{% endif %} disabled>
+                    Assigned
+                </option>
+
+                <!-- Discarded only available if not assigned -->
+                {% if asset.status != 'Assigned' %}
+                    <option value="Discarded" {% if asset.status=='Discarded' %}selected{% endif %}>Discarded</option>
+                {% endif %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="purchased_date" class="form-label">Purchased Date:</label>
+            <input type="date" class="form-control" id="purchased_date" name="purchased_date"
+                   value="{{ asset.purchasedDate|string }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="discarded_date" class="form-label">Discarded Date:</label>
+            <input type="date" class="form-control" id="discarded_date" name="discarded_date" value="{{ asset.discardedDate|string }}" readonly>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Asset</button>
+        <a href="/assets" class="btn btn-secondary">Back to Assets</a>
+    </form>
+</div>
+</body>
+{% endblock %}

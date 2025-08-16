@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4">Database Configuration</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+    <div class="mb-3">
+        <label>Host:</label>
+        <input type="text" name="host" value="{{ db_config.host }}" class="form-control" autocomplete="off" required>
+    </div>
+    <div class="mb-3">
+        <label>User:</label>
+        <input type="text" name="user" value="{{ db_config.user }}" class="form-control" autocomplete="off" required>
+    </div>
+    <div class="mb-3">
+        <label>Password:</label>
+        <input type="password" id="password" name="password" value="{{ db_config.password }}" class="form-control" autocomplete="off" style="flex: 1;">
+    </div>
+    <div class="mb-3">
+        <label>Database:</label>
+        <input type="text" name="database" value="{{ db_config.database }}" class="form-control" autocomplete="off" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Connect</button>
+
+        {% if db_connected %}
+            <a href="{{ url_for('disconnect') }}" class="btn btn-danger ms-2">Disconnect</a>
+        {% endif %}
+</form>
+</div>
+{% endblock %}

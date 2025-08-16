@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <h2>Add New Asset</h2>
+
+    {% if message %}
+        <div class="alert alert-info">{{ message }}</div>
+    {% endif %}
+
+    <form method="post">
+        <div class="mb-3">
+            <label for="asset_type" class="form-label">Asset Type:</label>
+            <select class="form-select" id="asset_type" name="asset_type" required>
+                <option value="" disabled selected>Select type</option>
+                <option value="Monitor">Monitor</option>
+                <option value="CPU">CPU</option>
+                <option value="Keyboard">Keyboard</option>
+                <option value="Mouse">Mouse</option>
+                <option value="Printer">Printer</option>
+            </select>
+        </div>
+
+        <!-- Status defaulted to Not Assigned -->
+        <input type="hidden" name="status" value="Not Assigned">
+
+        <div class="mb-3">
+            <label for="purchased_date" class="form-label">Purchased Date:</label>
+            <input type="date" class="form-control" id="purchased_date" name="purchased_date" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Add Asset</button>
+    </form>
+
+    <a href="/assets" class="btn btn-secondary mt-3">Back to Assets</a>
+</div>
+{% endblock %}
